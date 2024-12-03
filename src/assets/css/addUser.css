@@ -61,6 +61,20 @@ input:focus {
     opacity: 0.9;
 }
 
+.remove-address-btn{
+    background-color: rgb(228, 23, 23);
+    color: white;
+    font-size: 0.9rem;
+    padding: 0.5rem;
+    border-radius: 4px;
+    cursor: pointer;
+    border: none;
+}
+
+.remove-address-btn:hover {
+    opacity: 0.9;
+}
+
 /* Buttons for form actions */
 .form-actions {
     display: flex;

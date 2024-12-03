@@ -4,7 +4,7 @@ import axios from "axios";
 import "../assets/css/addUser.css";
 
 const AddUser = () => {
-  // State for form data
+   // State for form data
   const [formData, setFormData] = useState({
     firstName: "",
     lastName: "",
@@ -16,7 +16,7 @@ const AddUser = () => {
   const navigate = useNavigate(); // For navigation
   const { id } = useParams(); // Get user ID from URL params
 
-  // Fetch user data for editing when `id` exists
+   // Fetch user data for editing when `id` exists
   useEffect(() => {
     if (id) {
       axios
@@ -52,7 +52,14 @@ const AddUser = () => {
     });
   };
 
-  // Handle form submission
+   // remove address from the list
+  const removeAddress = (index) => {
+    const updatedAddresses = [...formData.addresses];
+    updatedAddresses.splice(index, 1); // Remove the address at the specified index
+    setFormData({ ...formData, addresses: updatedAddresses });
+  };
+
+   // Handle form submission
   const handleSubmit = (e) => {
     e.preventDefault();
     const apiCall = id
@@ -100,7 +107,7 @@ const AddUser = () => {
           required
         />
         <h3>Addresses</h3>
-         {/* Render multiple address fields dynamically */}
+        {/* Render multiple address fields dynamically */}
         {formData.addresses.map((address, index) => (
           <div key={index} className="address-container">
             <input
@@ -124,6 +131,16 @@ const AddUser = () => {
               value={address.location}
               onChange={(e) => handleChange(e, index, "addresses")}
             />
+            {/* Display Remove Address button if more than one address exists */}
+            {formData.addresses.length > 1 && (
+              <button
+                type="button"
+                className="remove-address-btn"
+                onClick={() => removeAddress(index)}
+              >
+                Remove Address
+              </button>
+            )}
           </div>
         ))}
         <button type="button" className="add-address-btn" onClick={addAddress}>
